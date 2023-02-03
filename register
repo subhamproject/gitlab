@@ -46,3 +46,16 @@ gitlab-runner register
 --machine-machine-options amazonec2-ssh-user=ubuntu
 --machine-machine-options amazonec2-ami=<my ami>
 --machine-machine-options amazonec2-userdata=/etc/gitlab-runner/userdata.sh
+
+
+
+
+gitlab-runner register -n \
+  --non-interactive \
+  --url https://YOUR_gitlab.com/ \
+  --registration-token YOUR_REGISTRATION_TOKEN \
+  --name YOUR_RUNNER_NAME
+  --tag-list "docker-19.03.12-dind" \
+  --executor docker \
+  --docker-image "docker:19.03.12" \
+  --docker-privileged
