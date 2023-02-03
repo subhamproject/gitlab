@@ -7,3 +7,42 @@ gitlab-runner register --non-interactive -r 'asasdasdasd' \
       --cache-s3-access-key 'asdasdasd' --cache-s3-secret-key 'asdasdasd' \
       --cache-s3-bucket-name 'swarmcache' --cache-s3-insecure false --cache-s3-cache-path 'swarmcache/' --cache-cache-shared true \
       --docker-cert-path /etc/gitlab-runner
+
+
+gitlab-runner register
+--non-interactive
+--url <my gitlab instance>
+--registration-token <my token>
+--tag-list runner-autoscale-test
+--env "DOCKER_AUTH_CONFIG={\"credsStore\":\"ecr-login\"}"
+--env "AWS_SDK_LOAD_CONFIG=true"
+--executor docker+machine
+--docker-tlsverify
+--docker-image alpine:latest
+--tls-cert-file /etc/ssl/private/localhost.bundle
+--tls-key-file /etc/ssl/private/localhost.key
+--docker-disable-cache
+--docker-privileged
+--cache-type "s3"
+--cache-shared
+--cache-path "/cache"
+--cache-s3-server-address "s3.amazonaws.com"
+--cache-s3-bucket-name <my bucket>
+--cache-s3-bucket-location "ap-southeast-2"
+--cache-s3-insecure=false
+--machine-idle-nodes 1
+--machine-idle-time 1800
+--machine-max-builds 100
+--machine-machine-driver amazonec2
+--machine-machine-name gitlab-docker-machine-%s
+--machine-machine-options amazonec2-region=ap-southeast-2
+--machine-machine-options amazonec2-use-private-address
+--machine-machine-options amazonec2-instance-type=m4.xlarge
+--machine-machine-options amazonec2-tags=Name,gitlab-runner-instance,environment,preview
+--machine-machine-options amazonec2-security-group=gitlab-runner-sg-preview
+--machine-machine-options amazonec2-vpc-id=<my vpc>
+--machine-machine-options amazonec2-request-spot-instance=false
+--machine-machine-options amazonec2-iam-instance-profile=gitlab-autoscaling-runner-preview
+--machine-machine-options amazonec2-ssh-user=ubuntu
+--machine-machine-options amazonec2-ami=<my ami>
+--machine-machine-options amazonec2-userdata=/etc/gitlab-runner/userdata.sh
