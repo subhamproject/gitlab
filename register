@@ -1,0 +1,9 @@
+#!/bin/bash
+
+gitlab-runner register --non-interactive -r 'asasdasdasd' \
+      --name 'gitlab-runner-${HOSTNAME}' --tag-list 'swarm-runner' --url 'asdasdadassd' --executor docker \
+      --docker-image 'adasdasda' --limit 4 --docker-tlsverify false --docker-privileged false \
+      --docker-cpus 4 --docker-memory 8g --cache-type s3 --cache-s3-server-address 'asdasdasd'\
+      --cache-s3-access-key 'asdasdasd' --cache-s3-secret-key 'asdasdasd' \
+      --cache-s3-bucket-name 'swarmcache' --cache-s3-insecure false --cache-s3-cache-path 'swarmcache/' --cache-cache-shared true \
+      --docker-cert-path /etc/gitlab-runner
